@@ -27,3 +27,9 @@ T RandomIntegerGenerator<T>::generateRandom()
 {
 	return mRandom(getEngine());
 }
+
+template<typename T>
+inline T RandomIntegerGenerator<T>::operator()()
+{
+	return mRandom(getEngine());
+}

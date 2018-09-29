@@ -27,3 +27,9 @@ T RandomRealNumberGenerator<T>::generateRandom()
 {
 	return mRandom(getEngine());
 }
+
+template<typename T>
+T RandomRealNumberGenerator<T>::operator()()
+{
+	return mRandom(getEngine());
+}

@@ -18,6 +18,7 @@ class RandomRealNumberGenerator : private RandomGeneratorBase
 		T getMax() const;
 
 		T generateRandom();
+		T operator()();
 
     private:
 		std::uniform_real_distribution<T> mRandom;

@@ -18,6 +18,7 @@ class RandomIntegerGenerator : private RandomGeneratorBase
 		T getMax() const;
 
 		T generateRandom();
+		T operator()();
 
     private:
 		std::uniform_int_distribution<T> mRandom;
