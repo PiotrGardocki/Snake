@@ -1,4 +1,5 @@
 #include <Other/Utility.hpp>
+#include <RandomNumbers/RandomIntegerGenerator.hpp>
 #include "Board.hpp"
 #include "Snake.hpp"
 #include "GrowBonus.hpp"
@@ -83,7 +84,9 @@ void Board::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Board::generateGrowBonus()
 {
-	sf::Vector2i newBonus(randomInt(0, mGridsNum.x - 1), randomInt(0, mGridsNum.y - 1));
+	RandomIntegerGenerator<int> randomX(0, mGridsNum.x - 1);
+	RandomIntegerGenerator<int> randomY(0, mGridsNum.y - 1);
+	sf::Vector2i newBonus(randomX.generateRandom(), randomY.generateRandom());
 
 	while (mSnake.belongsToSnake(newBonus))
 	{
