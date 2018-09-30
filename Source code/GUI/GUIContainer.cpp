@@ -170,6 +170,7 @@ void GUIContainer::selectPrevious()
 void GUIContainer::checkMouseSelect(const sf::Vector2i & mouse)
 {
 	sf::Vector2f mousePoss = mMouseRelativeTo.mapPixelToCoords(mouse);
+	mousePoss = getInverseTransform().transformPoint(mousePoss);
 
 	for (short index = 0; index < mComponents.size(); ++index)
 	{

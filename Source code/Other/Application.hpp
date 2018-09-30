@@ -13,6 +13,7 @@ class Application
 
     private:
 		void update(sf::Time deltaTime);
+		void handleEvents();
 		void render();
 
 		sf::RenderWindow mWindow;

@@ -36,14 +36,7 @@ void Application::run()
 	{
 		deltaTime += clock.restart();
 
-		sf::Event event;
-		while (mWindow.pollEvent(event))
-		{
-			mStateStack.handleEvent(event);
-
-			if (event.type == sf::Event::Closed)
-				mWindow.close();
-		}
+		handleEvents();
 
 		sf::Time timePerFrame = sf::seconds(1.f / 60.f);
 		while (deltaTime > timePerFrame)
@@ -62,6 +55,18 @@ void Application::run()
 void Application::update(sf::Time deltaTime)
 {
 	mStateStack.update(deltaTime);
+}
+
+void Application::handleEvents()
+{
+	sf::Event event;
+	while (mWindow.pollEvent(event))
+	{
+		mStateStack.handleEvent(event);
+
+		if (event.type == sf::Event::Closed)
+			mWindow.close();
+	}
 }
 
 void Application::render()

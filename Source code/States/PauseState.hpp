@@ -3,6 +3,7 @@
 
 #include "AppState.hpp"
 #include <GUI/GUIContainer.hpp>
+#include <GUI/Button.hpp>
 
 class PauseState : public AppState
 {
@@ -15,7 +16,14 @@ class PauseState : public AppState
 		virtual bool handleEvent(const sf::Event & event) override;
 
 	private:
+		void onWindowResize();
+
+		std::shared_ptr<Button> createMenuButton();
+		std::shared_ptr<Button> createBackToGameButton();
+
+	private:
 		GUIContainer mGUIcontainer;
+		sf::View mView;
 };
 
 #endif // PAUSESTATE_HPP_
