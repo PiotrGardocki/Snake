@@ -2,8 +2,8 @@
 #define MENUSTATE_HPP_
 
 #include "AppState.hpp"
-#include <GUI/GUIContainer.hpp>
 #include <GUI/Button.hpp>
+#include <GUI/GUIContainer.hpp>
 
 class MenuState : public AppState
 {
@@ -15,8 +15,15 @@ class MenuState : public AppState
 		virtual bool update(sf::Time deltaTime) override;
 		virtual bool handleEvent(const sf::Event & event) override;
 
+	private:
+		void onWindowResize();
+
+		std::shared_ptr<Button> createPlayButton();
+		std::shared_ptr<Button> createExitButton();
+
     private:
 		GUIContainer mGUIcontainer;
+		sf::View mView;
 };
 
 #endif // MENUSTATE_HPP_

@@ -16,6 +16,11 @@ class Application
 		void handleEvents();
 		void render();
 
+		void loadTextures();
+		void loadFonts();
+		void registerStates();
+
+	private:
 		sf::RenderWindow mWindow;
 		StateStack mStateStack;
 		TextureStorage mTextures;

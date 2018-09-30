@@ -1,17 +1,17 @@
 #include "PauseState.hpp"
+#include <Other/Utility.hpp>
 
 PauseState::PauseState(StateStack & stateStack, AppState::GlobalContext & context)
 	: AppState(stateStack, context),
 	mGUIcontainer(mGlobalContext.mRenderWindow)
 {
 	mGUIcontainer.setMouseControl(true);
+	mGUIcontainer.setKeyboardControl(true);
 
-	std::shared_ptr<Button> menuButton(createMenuButton());
-	std::shared_ptr<Button> backToGameButton(createBackToGameButton());
+	mGUIcontainer.packComponent(createMenuButton());
+	mGUIcontainer.packComponent(createBackToGameButton());
 
-	mGUIcontainer.packComponent(menuButton);
-	mGUIcontainer.packComponent(backToGameButton);
-
+	mView.setCenter(0.f, 0.f);
 	onWindowResize();
 }
 
@@ -19,7 +19,10 @@ void PauseState::draw()
 {
 	sf::RenderWindow & window = mGlobalContext.mRenderWindow;
 
+	sf::FloatRect viewRect(getViewRect(mView));
+
 	sf::RectangleShape background(sf::Vector2f(window.getSize()));
+	background.setPosition(viewRect.left, viewRect.top);
 	background.setFillColor(sf::Color(50, 50, 50, 200));
 
 	window.draw(background);
@@ -54,11 +57,7 @@ bool PauseState::handleEvent(const sf::Event & event)
 void PauseState::onWindowResize()
 {
 	sf::Vector2f windowSize(mGlobalContext.mRenderWindow.getSize());
-
-	mGUIcontainer.setPosition(windowSize / 2.f);
-
-	sf::FloatRect viewRect(sf::Vector2f(0.f, 0.f), windowSize);
-	mView.reset(viewRect);
+	mView.setSize(windowSize);
 	mGlobalContext.mRenderWindow.setView(mView);
 }
 

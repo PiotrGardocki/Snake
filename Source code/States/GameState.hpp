@@ -17,6 +17,7 @@ class GameState : public AppState
 
     private:
 		Board mBoard;
+		sf::View mView;
 };
 
 #endif // GAMESTATE_HPP_

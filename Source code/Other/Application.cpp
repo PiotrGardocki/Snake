@@ -8,21 +8,9 @@ Application::Application()
 	: mWindow(sf::VideoMode(1000, 700), "Snake"),
 	mStateStack(AppState::GlobalContext(mWindow, mTextures, mFonts))
 {
-	mTextures.load(Textures::normalButton, "Images/normal.jpg");
-	mTextures.load(Textures::selectButton, "Images/select.jpg");
-
-	mTextures.load(Textures::growBonus, "Images/bonus.png");
-	mTextures.load(Textures::snakeHead, "Images/head.png");
-	mTextures.load(Textures::snakeBodyStraight, "Images/bodyStraight.png");
-	mTextures.load(Textures::snakeBodyTurned, "Images/bodyTurned.png");
-	mTextures.load(Textures::snakeTail, "Images/tail.png");
-
-	mFonts.load(Fonts::main, "Sansation.ttf");
-
-	mStateStack.registerState<MenuState>(State::MenuState);
-	mStateStack.registerState<GameState>(State::GameState);
-	mStateStack.registerState<PauseState>(State::PauseState);
-	mStateStack.registerState<GameOverState>(State::GameOverState);
+	loadTextures();
+	loadFonts();
+	registerStates();
 }
 
 void Application::run()
@@ -74,4 +62,29 @@ void Application::render()
 	mWindow.clear();
 	mStateStack.draw();
 	mWindow.display();
+}
+
+void Application::loadTextures()
+{
+	mTextures.load(Textures::normalButton, "Images/normal.jpg");
+	mTextures.load(Textures::selectButton, "Images/select.jpg");
+
+	mTextures.load(Textures::growBonus, "Images/bonus.png");
+	mTextures.load(Textures::snakeHead, "Images/head.png");
+	mTextures.load(Textures::snakeBodyStraight, "Images/bodyStraight.png");
+	mTextures.load(Textures::snakeBodyTurned, "Images/bodyTurned.png");
+	mTextures.load(Textures::snakeTail, "Images/tail.png");
+}
+
+void Application::loadFonts()
+{
+	mFonts.load(Fonts::main, "Sansation.ttf");
+}
+
+void Application::registerStates()
+{
+	mStateStack.registerState<MenuState>(State::MenuState);
+	mStateStack.registerState<GameState>(State::GameState);
+	mStateStack.registerState<PauseState>(State::PauseState);
+	mStateStack.registerState<GameOverState>(State::GameOverState);
 }

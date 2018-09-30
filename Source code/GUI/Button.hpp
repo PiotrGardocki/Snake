@@ -29,7 +29,7 @@ class Button : public GUIComponent
 		virtual bool contains(const sf::Vector2f & vector) const override;
 
 	private:
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 		void setTexture(const sf::Texture * texture);
 
     private:

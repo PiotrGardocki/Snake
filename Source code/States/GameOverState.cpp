@@ -14,16 +14,23 @@ GameOverState::GameOverState(StateStack & stateStack, AppState::GlobalContext & 
 	context.mGameStatus = GameStatus::none;
 
 	centerOrigin(mText);
-	mText.setPosition(sf::Vector2f(context.mRenderWindow.getSize()) / 2.f);
+
+	mView.setCenter(0.f, 0.f);
+	onWindowResize();
 }
 
 void GameOverState::draw()
 {
-	sf::RectangleShape background(sf::Vector2f(mGlobalContext.mRenderWindow.getSize()));
+	sf::RenderWindow & window = mGlobalContext.mRenderWindow;
+
+	sf::FloatRect viewRect(getViewRect(mView));
+
+	sf::RectangleShape background(sf::Vector2f(window.getSize()));
+	background.setPosition(viewRect.left, viewRect.top);
 	background.setFillColor(sf::Color(50, 50, 50, 200));
 
-	mGlobalContext.mRenderWindow.draw(background);
-	mGlobalContext.mRenderWindow.draw(mText);
+	window.draw(background);
+	window.draw(mText);
 }
 
 bool GameOverState::letDrawOtherStates()
@@ -45,5 +52,17 @@ bool GameOverState::update(sf::Time deltaTime)
 
 bool GameOverState::handleEvent(const sf::Event & event)
 {
+	if (event.type == sf::Event::Resized)
+	{
+		onWindowResize();
+		return true;
+	}
 	return false;
+}
+
+void GameOverState::onWindowResize()
+{
+	sf::Vector2f windowSize(mGlobalContext.mRenderWindow.getSize());
+	mView.setSize(windowSize);
+	mGlobalContext.mRenderWindow.setView(mView);
 }
