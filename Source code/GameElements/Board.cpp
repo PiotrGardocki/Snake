@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include <Other/Utility.hpp>
 #include <RandomNumbers/RandomIntegerGenerator.hpp>
 #include "Board.hpp"
@@ -11,6 +13,9 @@ Board::Board(const sf::Vector2u & gridsNum, float gridSize, const TextureStorage
 	mGrowBonus(textures, *this),
 	mSnake(textures, *this, mGrowBonus)
 {
+	if (gridsNum.x < 5 || gridsNum.y < 5)
+		throw std::runtime_error("Board must have size at least 5x5");
+
 	mSnake.setSpeed(0.5f);
 }
 
